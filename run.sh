@@ -1,13 +1,13 @@
 #set -x
 #QSUB_OPTIONS='-q lg-mem -l h_vmem=50G -M Gu.Qiangqiang@mayo.edu -m abe -V -cwd -j y -o /research/bsi/projects/PI/tertiary/Hart_Steven_m087494/s211408.DigitalPathology/Quincy/LOG'
-img_dir='/research/bsi/projects/PI/tertiary/Hart_Steven_m087494/s211408.DigitalPathology/Quincy/Split/train'
-re_img_dir='/research/bsi/projects/PI/tertiary/Hart_Steven_m087494/s211408.DigitalPathology/Quincy/Split'
+img_dir='/research/bsi/projects/PI/tertiary/Hart_Steven_m087494/s211408.DigitalPathology/Quincy/split/train'
+re_img_dir='/research/bsi/projects/PI/tertiary/Hart_Steven_m087494/s211408.DigitalPathology/Quincy/split'
 patch_dir='/research/bsi/projects/PI/tertiary/Hart_Steven_m087494/s211408.DigitalPathology/Quincy/patches'
-tf_dir='/research/bsi/projects/PI/tertiary/Hart_Steven_m087494/s211408.DigitalPathology/Quincy/tfrecord_c01/train'
-is_reorganize='True',
-is_split=args.is_split='True',
-return_patches='True',
-is_tfrecord_create='True'
+tf_dir='/research/bsi/projects/PI/tertiary/Hart_Steven_m087494/s211408.DigitalPathology/Quincy/tfrecord/train'
+is_reorganize='False'
+is_split='False'
+return_patches='True'
+is_tfrecord_create='False'
 patch_size=512
 least_level=4
 c0_train=1.0

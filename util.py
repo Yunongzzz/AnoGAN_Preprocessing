@@ -35,7 +35,7 @@ def single_patch_store(patch_path, img, height, width):
     patch_name = os.path.basename(img)
     img_name = os.path.basename(os.path.dirname(img))
 
-    im = Image.open(input)
+    im = Image.open(img)
     imgwidth, imgheight = im.size
     img_patch_index = 0
     for i in range(0, imgheight, height):
