@@ -1,5 +1,16 @@
-set -x
-QSUB_OPTIONS='-q lg-mem -l h_vmem=1000G -M Gu.Qiangqiang@mayo.edu -m abe -V -cwd -j y -o /research/bsi/projects/PI/tertiary/Hart_Steven_m087494/s211408.DigitalPathology/Quincy/LOG'
-
-
-qsub $QSUB_OPTIONS -b y /research/bsi/projects/PI/tertiary/Hart_Steven_m087494/s211408.DigitalPathology/Quincy/Anaconda/conda_env/tf2/bin/python3 /research/bsi/projects/PI/tertiary/Hart_Steven_m087494/s211408.DigitalPathology/Quincy/Code/pGANa_Preprocess_Clustering/bach_prep.py -g $train_log -l $val_log -t $train_path -v $val_path -d $test_path -r $result_path -f $result_file_name -Y $imf_norm_op_name -A $dim_compress_features -T $net_size -D $dropout_name -R $dropout_rate -o $i_optimizer_name -p $b_optimizer_name -z $a_optimizer_name -y $i_loss_name -b $b_loss_name -u $mut_ex_name -S $n_class -c $c1 -a $c2 -L $i_learn_rate -j $b_learn_rate -k $a_learn_rate -n $i_l2_decay -q $b_l2_decay -w $a_l2_decay -K $top_k_percent -Z $batch_size -B $batch_op_name -m $c_model_dir -O $att_only_name -N $mil_ins_name -x $att_gate_name -E $epochs -X $n_test_steps -W $no_warn_op_name -I $i_wd_op_name -J $b_wd_op_name -C $a_wd_op_name -M $m_clam_op_name -G $m_gpu_name -i $is_training_name
+#set -x
+#QSUB_OPTIONS='-q lg-mem -l h_vmem=50G -M Gu.Qiangqiang@mayo.edu -m abe -V -cwd -j y -o /research/bsi/projects/PI/tertiary/Hart_Steven_m087494/s211408.DigitalPathology/Quincy/LOG'
+img_dir='/research/bsi/projects/PI/tertiary/Hart_Steven_m087494/s211408.DigitalPathology/Quincy/Split/train'
+re_img_dir='/research/bsi/projects/PI/tertiary/Hart_Steven_m087494/s211408.DigitalPathology/Quincy/Split'
+patch_dir='/research/bsi/projects/PI/tertiary/Hart_Steven_m087494/s211408.DigitalPathology/Quincy/patches'
+tf_dir='/research/bsi/projects/PI/tertiary/Hart_Steven_m087494/s211408.DigitalPathology/Quincy/tfrecord_c01/train'
+is_reorganize='True',
+is_split=args.is_split='True',
+return_patches='True',
+is_tfrecord_create='True'
+patch_size=512
+least_level=4
+c0_train=1.0
+c1_train=0.0
+/research/bsi/projects/PI/tertiary/Hart_Steven_m087494/s211408.DigitalPathology/Quincy/Anaconda/conda_env/tf2/bin/python3 /research/bsi/projects/PI/tertiary/Hart_Steven_m087494/s211408.DigitalPathology/Quincy/Code/pGANa_Preprocess_Clustering/main.py -n $is_reorganize -l $is_split -u $return_patches -e $is_tfrecord_create -i $img_dir -g $re_img_dir -a $patch_dir -t $tf_dir -p $patch_size -f $least_level -c $c0_train -r $c1_train
+#qsub $QSUB_OPTIONS -b y /research/bsi/projects/PI/tertiary/Hart_Steven_m087494/s211408.DigitalPathology/Quincy/Anaconda/conda_env/tf2/bin/python3 /research/bsi/projects/PI/tertiary/Hart_Steven_m087494/s211408.DigitalPathology/Quincy/Code/pGANa_Preprocess_Clustering/main.py -n $is_reorganize -l $is_split -u $return_patches -e $is_tfrecord_create -i $img_dir -g $re_img_dir -a $patch_dir -t $tf_dir -p $patch_size -f $least_level -c $c0_train -r $c1_train

@@ -4,7 +4,7 @@ import math
 
 from PIL import Image
 
-from bach_prep import log2n, _int64_feature, _bytes_feature
+from util import log2n, _int64_feature, _bytes_feature
 
 
 def patch_extract_to_tf(tf_path, input_img_path, height, width):
@@ -77,19 +77,19 @@ def patch_resize_to_tf(tf_path, input_img_path, height, width, resize_shape):
         tf_writer.write(Serialized)
     tf_writer.close()
 
-def tf_create(img_path, tf_path, ori_patch_size, final_patch_size):
-    tf_patch_path = os.path.join(tf_path, 'level_' + str(log2n(ori_patch_size[0])))
+def tf_create(img_path, tf_path, ori_patch_size_val, final_patch_size_val):
+    tf_patch_path = os.path.join(tf_path, 'level_' + str(log2n(ori_patch_size_val)))
 
     if not os.path.exists(tf_patch_path):
         os.mkdir(tf_patch_path)
 
-    patch_height = ori_patch_size[0]
-    patch_width = ori_patch_size[1]
+    patch_height = ori_patch_size_val
+    patch_width = ori_patch_size_val
 
-    for i in os.listdir(img_dir):
-        patch_extract_to_tf(tf_patch_path, os.path.join(img_dir, i), patch_height, patch_width)
+    for i in os.listdir(img_path):
+        patch_extract_to_tf(tf_patch_path, os.path.join(img_path, i), patch_height, patch_width)
 
-    resize_steps = log2n(ori_patch_size[0]) - log2n(final_patch_size[0])
+    resize_steps = log2n(ori_patch_size_val) - log2n(final_patch_size_val)
     res_index = resize_steps + 2
 
     for step in range(resize_steps):
@@ -105,10 +105,3 @@ def tf_create(img_path, tf_path, ori_patch_size, final_patch_size):
 
         for j in os.listdir(img_path):
             patch_resize_to_tf(tf_level_path, os.path.join(img_path, j), 512, 512, resized_shape)
-
-
-img_dir = '/research/bsi/projects/PI/tertiary/Hart_Steven_m087494/s211408.DigitalPathology/Quincy/BACH/Normal'
-patch_dir = '/research/bsi/projects/PI/tertiary/Hart_Steven_m087494/s211408.DigitalPathology/Quincy/patch/Normal'
-tf_dir = '/research/bsi/projects/PI/tertiary/Hart_Steven_m087494/s211408.DigitalPathology/Quincy/TFRecord/Normal'
-
-tf_create(img_path=img_dir, tf_path=tf_dir, ori_patch_size=(512,512), final_patch_size=(4,4))
