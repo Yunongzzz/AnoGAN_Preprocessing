@@ -9,13 +9,16 @@ def _bytes_feature(value):
     """Returns a bytes_list from a string / byte."""
     return tf.train.Feature(bytes_list=tf.train.BytesList(value=[value]))
 
+
 def _float_feature(value):
     """Returns a float_list from a float / double."""
     return tf.train.Feature(float_list=tf.train.FloatList(value=[value]))
 
+
 def _int64_feature(value):
     """Returns an int64_list from a bool / enum / int / uint."""
     return tf.train.Feature(int64_list=tf.train.Int64List(value=[value]))
+
 
 def log2n(n):
     if n > 1:
@@ -25,11 +28,13 @@ def log2n(n):
 
     return exp_n
 
+
 def str_to_bool():
     str_bool_dic = {'True': True,
                     'False': False}
 
     return str_bool_dic
+
 
 def single_patch_store(patch_path, img, height, width):
     patch_name = os.path.basename(img)
@@ -46,6 +51,7 @@ def single_patch_store(patch_path, img, height, width):
             img_patch.save(saved_path, "JPEG")
             img_patch_index += 1
 
+
 def patch_extract_save(img_path, patch_path, ori_patch_size_val):
     height = ori_patch_size_val
     width = ori_patch_size_val
@@ -53,6 +59,7 @@ def patch_extract_save(img_path, patch_path, ori_patch_size_val):
     for i in os.listdir(img_path):
         img = os.path.join(img_path, i)
         single_patch_store(patch_path, img, height, width)
+
 
 def bach_class_reorganize(img_path, reorganize_img_path):
     class_0_path = os.path.join(reorganize_img_path, 'class_0')
