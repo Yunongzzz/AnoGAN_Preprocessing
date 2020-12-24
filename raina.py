@@ -57,16 +57,28 @@ def patch(image_dir, height, width):
     neg_dir = os.path.join(image_dir, 'class_0')
     pos_dir = os.path.join(image_dir, 'class_1')
 
-    patch_dir= os.path.join(image_dir, 'patch_dir')
+    patch_dir = os.path.join(image_dir, 'patch_dir')
+    pos_patch_dir = os.path.join(patch_dir, 'class_1')
+    neg_patch_dir = os.path.join(patch_dir, 'class_0')
+
     if not os.path.exists(patch_dir):
         os.mkdir(patch_dir)
 
+    if not os.path.exists(pos_patch_dir):
+        os.mkdir(pos_patch_dir)
+
+    if not os.path.exists(neg_patch_dir):
+        os.mkdir(neg_patch_dir)
+
     for i in os.listdir(neg_dir):
         file_name = os.path.join(neg_dir, i)
-        single_patch_store(patch_dir, file_name, height, width)
+        single_patch_store(neg_patch_dir, file_name, height, width)
     for j in os.listdir(pos_dir):
-        file_name = os.path.join(pos_dir,j)
-        single_patch_store(patch_dir,file_name,height,width)
+        file_name = os.path.join(pos_dir, j)
+        single_patch_store(pos_patch_dir, file_name, height, width)
+
+    shutil.rmtree(pos_dir)
+    shutil.rmtree(neg_dir)
 
 
 patch(data_dir, 512, 512)
